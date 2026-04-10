@@ -1,26 +1,205 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #050505;
+  --bg-secondary: #000000;
+  --accent: #00bfff;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --hologram-current: #d4af37;
+  --hologram-potential: #ffffff;
+  --highlight-polygon: #00ff00;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  font-family: Verdana, Geneva, sans-serif !important;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #050505;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Holographic grid background */
+.holo-grid {
+  background-image:
+    linear-gradient(rgba(0, 191, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 191, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridFlow 10s linear infinite;
+}
+
+@keyframes gridFlow {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 40px; }
+}
+
+/* Glassmorphism panel */
+.glass-panel {
+  background: rgba(5, 5, 5, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 191, 255, 0.12);
+  border-radius: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 191, 255, 0.3);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 191, 255, 0.6);
+}
+
+/* Scan line animation */
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.3), transparent);
+  animation: scan 6s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes scan {
+  0% { top: -2px; }
+  100% { top: 100vh; }
+}
+
+/* Accent glow */
+.accent-glow {
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.2), 0 0 60px rgba(0, 191, 255, 0.05);
+}
+
+/* Text glow */
+.text-glow {
+  text-shadow: 0 0 10px rgba(0, 191, 255, 0.6);
+}
+
+/* Gold glow for hologram */
+.gold-glow {
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+/* Blinking cursor */
+.blink {
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Custom select styling */
+select {
+  background: rgba(5, 5, 5, 0.9);
+  color: #ffffff;
+  border: 1px solid rgba(0, 191, 255, 0.2);
+  outline: none;
+  font-family: Verdana, Geneva, sans-serif !important;
+}
+
+select option {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+/* Input styling */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+textarea {
+  background: rgba(5, 5, 5, 0.9) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(0, 191, 255, 0.2) !important;
+  outline: none !important;
+  font-family: Verdana, Geneva, sans-serif !important;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border-color: rgba(0, 191, 255, 0.6) !important;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.1) !important;
+}
+
+input[type="range"] {
+  accent-color: #00bfff;
+}
+
+/* Button base */
+.btn-primary {
+  background: transparent;
+  border: 1px solid #00bfff;
+  color: #00bfff;
+  padding: 10px 24px;
+  font-family: Verdana, Geneva, sans-serif !important;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background: rgba(0, 191, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.1), transparent);
+  transition: left 0.4s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+/* Prose/MDX content */
+.prose-maxos h1,
+.prose-maxos h2,
+.prose-maxos h3 {
+  color: #00bfff;
+  font-family: Verdana, Geneva, sans-serif !important;
+  letter-spacing: 1px;
+}
+
+.prose-maxos p {
+  color: #a0a0a0;
+  line-height: 1.8;
+  font-size: 13px;
+}
+
+.prose-maxos strong {
+  color: #ffffff;
+}
+
+.prose-maxos ul {
+  color: #a0a0a0;
+  font-size: 13px;
 }

@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# maxOS
 
-## Getting Started
+> **objectively better, open source.**
 
-First, run the development server:
+maxOS is an engineering stack for human aesthetics. Not a course. Not a coach. Not a Discord server charging $97/month.
+
+## What It Is
+
+- **3D Holographic Engine** — Parametrically scaled body model (current vs. potential) using React Three Fiber
+- **MediaPipe Visual Analyzer** — Client-side facial landmark extraction for biometric ratios. Zero uploads. Zero server processing.
+- **Groq AI Assistant** — Ultra-low latency LLM (Llama 3.3 70B) with your full biometric context injected
+- **Personalized Action Plan** — MDX protocol database filtered to your specific insecurities
+- **Routine Tracker** — Evidence-based daily protocol adherence tracking
+
+## Tech Stack
+
+| Layer | Tech |
+|-------|------|
+| Framework | Next.js 14+ (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS + Verdana |
+| State | Zustand |
+| Auth | NextAuth.js (Google OAuth) |
+| Database | Supabase (PostgreSQL) |
+| 3D | React Three Fiber + Three.js |
+| Vision | MediaPipe Tasks Vision |
+| AI | Groq SDK (Llama 3.3 70B) |
+| Content | MDX + gray-matter |
+| Deployment | Netlify |
+
+## Setup
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/yourusername/maxos.git
+cd maxos
+npm install
+```
+
+### 2. Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in your values:
+
+```bash
+cp .env.example .env.local
+```
+
+Required variables:
+- `NEXT_PUBLIC_SUPABASE_URL` — Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Your Supabase anon key
+- `GOOGLE_CLIENT_ID` — Google OAuth client ID
+- `GOOGLE_CLIENT_SECRET` — Google OAuth client secret
+- `NEXTAUTH_SECRET` — Random 32+ char secret (`openssl rand -base64 32`)
+- `NEXTAUTH_URL` — Your deployment URL (`http://localhost:3000` for local)
+- `GROQ_API_KEY` — Your Groq API key (free tier available at console.groq.com)
+
+### 3. Supabase Schema
+
+Run `supabase-schema.sql` in your Supabase SQL editor to create the required tables.
+
+### 4. Google OAuth
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create OAuth 2.0 credentials
+3. Add authorized redirect URI: `http://localhost:3000/api/auth/callback/google`
+
+### 5. Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/[...nextauth]/  # NextAuth handler
+│   │   └── chat/               # Groq AI endpoint
+│   ├── dashboard/              # Main dashboard
+│   ├── onboarding/             # User onboarding flow
+│   └── page.tsx                # Landing page
+├── components/
+│   ├── dashboard/              # Dashboard components
+│   ├── landing/                # Landing page components
+│   ├── mediapipe/              # MediaPipe visual analyzer
+│   ├── three/                  # React Three Fiber hologram
+│   └── ui/                     # Shared UI components
+├── lib/
+│   ├── auth.ts                 # NextAuth config
+│   ├── mdx.ts                  # MDX content parser
+│   └── supabase.ts             # Supabase client
+├── store/
+│   └── useAppStore.ts          # Zustand global state
+└── types/
+    └── index.ts                # TypeScript types + file tree
+content/
+├── face/skin/                  # Skincare protocols (MDX)
+├── face/jawline/               # Facial structure protocols
+├── physique/posture/           # Posture correction protocols
+├── physique/body/              # Body composition protocols
+└── hair/                       # Hair protocols
+```
 
-## Learn More
+## Privacy
 
-To learn more about Next.js, take a look at the following resources:
+- MediaPipe runs **100% in the browser**. Webcam data is never transmitted.
+- User profile data is stored in Supabase with Row Level Security.
+- No tracking beyond Google AdSense (standard).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+MIT — Fork it. Read it. Audit it. Build on it.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Not medical advice. Protocols are based on published literature. Consult a qualified professional for medical decisions.*
