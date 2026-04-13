@@ -5,11 +5,14 @@ import { useAppStore } from "@/store/useAppStore";
 import type { ChatMessage } from "@/types";
 
 const SUGGESTED_QUERIES = [
-  "Analyze my jaw ratios",
-  "Best protocol for my BMI",
-  "Explain mewing mechanism",
-  "Skin texture fix stack",
-  "Posture correction plan",
+  "Analyze my jaw ratios and give me a protocol",
+  "Best skin routine for my skin type",
+  "How do I fix anterior pelvic tilt?",
+  "Explain the mewing mechanism with evidence",
+  "What should my shoulder-to-waist ratio be?",
+  "How to reduce submental fat without surgery",
+  "Best actives for hyperpigmentation on my type",
+  "Posture correction priority stack",
 ];
 
 export function AIChatPanel() {
@@ -17,7 +20,6 @@ export function AIChatPanel() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -36,10 +38,7 @@ export function AIChatPanel() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: [...chatMessages, userMsg].map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
+          messages: [...chatMessages, userMsg].map((m) => ({ role: m.role, content: m.content })),
           userProfile,
           diagnosisReport,
         }),
@@ -59,24 +58,17 @@ export function AIChatPanel() {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage(input);
-    }
-  };
-
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="p-3 border-b border-[rgba(0,191,255,0.08)] flex items-center justify-between flex-shrink-0">
+      <div className="p-3 border-b border-[rgba(90,179,204,0.07)] flex items-center justify-between flex-shrink-0">
         <div>
-          <p className="text-[9px] tracking-[3px] text-[#3a3a3a] uppercase">AI ENGINE</p>
-          <p className="text-xs text-[#00bfff] font-bold">maxOS Assistant</p>
+          <p className="text-[9px] tracking-[3px] text-[#2a2a2e] uppercase">AI ENGINE</p>
+          <p className="text-xs text-[#5ab3cc] font-bold">bemaxxed Assistant</p>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#00ff00] animate-pulse" />
-          <span className="text-[9px] text-[#00ff00] tracking-wider">GROQ LIVE</span>
+          <div className="w-1.5 h-1.5 rounded-full bg-[#52b788] animate-pulse" />
+          <span className="text-[9px] text-[#52b788] tracking-wider">GROQ LIVE</span>
         </div>
       </div>
 
@@ -85,25 +77,18 @@ export function AIChatPanel() {
         {chatMessages.length === 0 && (
           <div className="space-y-4">
             <div className="text-center py-4">
-              <div className="text-2xl text-[#00bfff] mb-2">◈</div>
-              <p className="text-[#a0a0a0] text-xs">
-                Clinical AI. Biometric context injected.
-              </p>
-              <p className="text-[#3a3a3a] text-[10px] mt-1">
-                Llama 3.3 70B · Groq · Ultra-low latency
-              </p>
+              <div className="text-2xl text-[#5ab3cc] mb-2">◈</div>
+              <p className="text-[#848484] text-xs">Clinical AI. Biometric context injected.</p>
+              <p className="text-[#2a2a2e] text-[10px] mt-1">Llama 3.3 70B · Groq · Ultra-low latency</p>
             </div>
-
             <div>
-              <p className="text-[9px] tracking-[2px] text-[#3a3a3a] uppercase mb-2">
-                SUGGESTED QUERIES
-              </p>
+              <p className="text-[9px] tracking-[2px] text-[#2a2a2e] uppercase mb-2">SUGGESTED</p>
               <div className="space-y-1">
                 {SUGGESTED_QUERIES.map((q) => (
                   <button
                     key={q}
                     onClick={() => sendMessage(q)}
-                    className="w-full text-left text-[11px] text-[#a0a0a0] hover:text-[#00bfff] border border-[rgba(255,255,255,0.04)] hover:border-[rgba(0,191,255,0.2)] px-3 py-2 transition-all"
+                    className="w-full text-left text-[11px] text-[#848484] hover:text-[#5ab3cc] border border-[rgba(255,255,255,0.03)] hover:border-[rgba(90,179,204,0.15)] px-3 py-1.5 transition-all"
                   >
                     ▸ {q}
                   </button>
@@ -114,26 +99,19 @@ export function AIChatPanel() {
         )}
 
         {chatMessages.map((msg, i) => (
-          <div
-            key={i}
-            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-          >
+          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
             {msg.role === "assistant" && (
-              <div className="w-5 h-5 rounded-full bg-[rgba(0,191,255,0.1)] border border-[rgba(0,191,255,0.3)] flex items-center justify-center text-[8px] text-[#00bfff] flex-shrink-0 mt-0.5 mr-2">
+              <div className="w-5 h-5 rounded-full bg-[rgba(90,179,204,0.08)] border border-[rgba(90,179,204,0.2)] flex items-center justify-center text-[8px] text-[#5ab3cc] flex-shrink-0 mt-0.5 mr-2">
                 ◈
               </div>
             )}
-            <div
-              className={`max-w-[85%] px-3 py-2 text-xs leading-relaxed ${
-                msg.role === "user"
-                  ? "bg-[rgba(0,191,255,0.08)] border border-[rgba(0,191,255,0.2)] text-white"
-                  : "bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] text-[#c0c0c0]"
-              }`}
-            >
+            <div className={`max-w-[85%] px-3 py-2 text-xs leading-relaxed ${
+              msg.role === "user"
+                ? "bg-[rgba(90,179,204,0.07)] border border-[rgba(90,179,204,0.15)] text-[#e8e8e8]"
+                : "bg-[rgba(255,255,255,0.015)] border border-[rgba(255,255,255,0.04)] text-[#b0b0b0]"
+            }`}>
               {msg.content.split("\n").map((line, li) => (
-                <p key={li} className={li > 0 ? "mt-1" : ""}>
-                  {line}
-                </p>
+                <p key={li} className={li > 0 ? "mt-1" : ""}>{line}</p>
               ))}
             </div>
           </div>
@@ -141,48 +119,38 @@ export function AIChatPanel() {
 
         {loading && (
           <div className="flex justify-start items-center gap-2">
-            <div className="w-5 h-5 rounded-full bg-[rgba(0,191,255,0.1)] border border-[rgba(0,191,255,0.3)] flex items-center justify-center text-[8px] text-[#00bfff]">
-              ◈
-            </div>
-            <div className="flex gap-1 px-3 py-2 bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)]">
+            <div className="w-5 h-5 rounded-full bg-[rgba(90,179,204,0.08)] border border-[rgba(90,179,204,0.2)] flex items-center justify-center text-[8px] text-[#5ab3cc]">◈</div>
+            <div className="flex gap-1 px-3 py-2 bg-[rgba(255,255,255,0.015)] border border-[rgba(255,255,255,0.04)]">
               {[0, 1, 2].map((i) => (
-                <div
-                  key={i}
-                  className="w-1 h-1 rounded-full bg-[#00bfff] animate-bounce"
-                  style={{ animationDelay: `${i * 0.15}s` }}
-                />
+                <div key={i} className="w-1 h-1 rounded-full bg-[#5ab3cc] animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />
               ))}
             </div>
           </div>
         )}
-
         <div ref={bottomRef} />
       </div>
 
       {/* Input */}
-      <div className="p-3 border-t border-[rgba(0,191,255,0.08)] flex-shrink-0">
+      <div className="p-3 border-t border-[rgba(90,179,204,0.07)] flex-shrink-0">
         <div className="flex gap-2">
           <textarea
-            ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
+            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(input); } }}
             placeholder="Query the engine..."
             rows={2}
-            className="flex-1 bg-[rgba(0,0,0,0.4)] border border-[rgba(0,191,255,0.15)] text-white text-xs p-2 resize-none focus:border-[rgba(0,191,255,0.5)] focus:outline-none placeholder-[#3a3a3a] transition-colors"
+            className="flex-1 bg-[rgba(0,0,0,0.5)] border border-[rgba(90,179,204,0.12)] text-[#e8e8e8] text-xs p-2 resize-none focus:border-[rgba(90,179,204,0.4)] focus:outline-none placeholder-[#2a2a2e] transition-colors"
             style={{ fontFamily: "Verdana, sans-serif" }}
           />
           <button
             onClick={() => sendMessage(input)}
             disabled={loading || !input.trim()}
-            className="px-3 py-2 border border-[#00bfff] text-[#00bfff] text-xs hover:bg-[rgba(0,191,255,0.1)] transition-all disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
+            className="px-3 py-2 border border-[#5ab3cc] text-[#5ab3cc] text-xs hover:bg-[rgba(90,179,204,0.08)] transition-all disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
           >
             ▶
           </button>
         </div>
-        <p className="text-[9px] text-[#3a3a3a] mt-1.5">
-          ENTER to send · SHIFT+ENTER for newline · Context-injected
-        </p>
+        <p className="text-[9px] text-[#2a2a2e] mt-1.5">ENTER to send · SHIFT+ENTER for newline</p>
       </div>
     </div>
   );

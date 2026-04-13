@@ -40,31 +40,31 @@ function BodyMesh({
   });
 
   const meshes = useMemo(() => {
-    const mats: Record<string, string> = {
-      Mesh_Head: color,
-      Mesh_Face: color,
-      Mesh_Jaw: color,
-      Mesh_Eye: color,
-      Mesh_Brow: color,
-      Mesh_Torso: color,
-      Mesh_Shoulder: color,
-      Mesh_Pelvis: color,
-      Mesh_Leg: color,
-      Mesh_Hair: color,
-    };
-    if (hoveredMesh && mats[hoveredMesh] !== undefined) {
-      mats[hoveredMesh] = "#00ff00";
-    }
+      const mats: Record<string, string> = {
+        Mesh_Head: color,
+        Mesh_Face: color,
+        Mesh_Jaw: color,
+        Mesh_Eye: color,
+        Mesh_Brow: color,
+        Mesh_Torso: color,
+        Mesh_Shoulder: color,
+        Mesh_Pelvis: color,
+        Mesh_Leg: color,
+        Mesh_Hair: color,
+      };
+      if (hoveredMesh && mats[hoveredMesh] !== undefined) {
+        mats[hoveredMesh] = "#52b788";
+      }
     return mats;
   }, [hoveredMesh, color]);
 
   const getMaterial = (meshName: string) =>
     new THREE.MeshStandardMaterial({
       color: new THREE.Color(meshes[meshName] ?? color),
-      emissive: new THREE.Color(
-        meshes[meshName] === "#00ff00" ? "#00ff00" : emissiveColor
-      ),
-      emissiveIntensity: meshes[meshName] === "#00ff00" ? 0.6 : 0.3,
+          emissive: new THREE.Color(
+            meshes[meshName] === "#52b788" ? "#52b788" : emissiveColor
+          ),
+          emissiveIntensity: meshes[meshName] === "#52b788" ? 0.5 : 0.25,
       roughness: 0.4,
       metalness: 0.2,
       wireframe: false,
@@ -203,17 +203,17 @@ export function HologramViewer({ heightCm = 175, weightKg = 70 }: HologramViewer
       {/* Legend */}
       <div className="absolute top-2 left-2 z-10 space-y-1">
         <div className="flex items-center gap-2 text-[10px]">
-          <div className="w-3 h-3 rounded-full" style={{ background: "#d4af37" }} />
-          <span className="text-[#a0a0a0]">CURRENT STATE</span>
+          <div className="w-3 h-3 rounded-full" style={{ background: "#c4a44a" }} />
+          <span className="text-[#848484]">CURRENT STATE</span>
         </div>
         <div className="flex items-center gap-2 text-[10px]">
-          <div className="w-3 h-3 rounded-full" style={{ background: "#ffffff" }} />
-          <span className="text-[#a0a0a0]">POTENTIAL</span>
+          <div className="w-3 h-3 rounded-full" style={{ background: "#d0d0d0" }} />
+          <span className="text-[#848484]">POTENTIAL</span>
         </div>
         {hoveredBodyPart && (
           <div className="flex items-center gap-2 text-[10px]">
-            <div className="w-3 h-3 rounded-full bg-[#00ff00]" />
-            <span className="text-[#00ff00]">ACTIVE: {hoveredBodyPart.replace("Mesh_", "")}</span>
+            <div className="w-3 h-3 rounded-full bg-[#52b788]" />
+            <span className="text-[#52b788]">ACTIVE: {hoveredBodyPart.replace("Mesh_", "")}</span>
           </div>
         )}
       </div>
@@ -232,14 +232,14 @@ export function HologramViewer({ heightCm = 175, weightKg = 70 }: HologramViewer
       >
         <Suspense fallback={null}>
           <ambientLight intensity={0.3} />
-          <pointLight position={[2, 4, 2]} intensity={1.5} color="#00bfff" />
+          <pointLight position={[2, 4, 2]} intensity={1.5} color="#5ab3cc" />
           <pointLight position={[-2, 2, -1]} intensity={0.8} color="#d4af37" />
           <pointLight position={[0, -1, 2]} intensity={0.4} color="#ffffff" />
 
           {/* Current state */}
           <BodyMesh
-            color="#d4af37"
-            emissiveColor="#d4af37"
+            color="#c4a44a"
+            emissiveColor="#c4a44a"
             position={[-0.7, -0.9, 0]}
             heightScale={heightScale}
             widthScale={widthScale}
@@ -250,8 +250,8 @@ export function HologramViewer({ heightCm = 175, weightKg = 70 }: HologramViewer
 
           {/* Potential state */}
           <BodyMesh
-            color="#ffffff"
-            emissiveColor="#8888ff"
+            color="#d0d0d0"
+            emissiveColor="#6080a8"
             position={[0.7, -0.9, 0]}
             heightScale={heightScale}
             widthScale={idealWidthScale}

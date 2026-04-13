@@ -15,8 +15,8 @@ const sizeMap = {
 export function MaxOSLogo({ size = "md", className = "" }: LogoProps) {
   return (
     <span className={`${sizeMap[size]} tracking-tight ${className}`} style={{ fontFamily: "Verdana, sans-serif" }}>
-      <span style={{ fontWeight: 900, color: "#00bfff" }}>max</span>
-      <span style={{ fontWeight: 400, color: "#ffffff" }}>OS</span>
+      <span style={{ fontWeight: 900, color: "#5ab3cc" }}>be</span>
+      <span style={{ fontWeight: 400, color: "#ffffff" }}>maxxed</span>
     </span>
   );
 }

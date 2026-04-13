@@ -46,10 +46,10 @@ export default function DashboardPage() {
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen bg-[#050505] flex items-center justify-center">
+      <div className="min-h-screen bg-[#060608] flex items-center justify-center">
         <div className="text-center">
-          <div className="text-[#00bfff] text-4xl mb-4 animate-pulse">◈</div>
-          <p className="text-[#a0a0a0] text-xs font-mono tracking-widest">AUTHENTICATING...</p>
+          <div className="text-[#5ab3cc] text-4xl mb-4 animate-pulse">◈</div>
+          <p className="text-[#848484] text-xs font-mono tracking-widest">AUTHENTICATING...</p>
         </div>
       </div>
     );
@@ -68,7 +68,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="h-screen bg-[#050505] flex flex-col overflow-hidden">
+    <div className="h-screen bg-[#060608] flex flex-col overflow-hidden">
       <div className="holo-grid fixed inset-0 pointer-events-none" style={{ zIndex: 0 }} />
 
       <DashboardHeader />
@@ -77,7 +77,7 @@ export default function DashboardPage() {
       <div className="flex flex-1 overflow-hidden relative z-10">
         {/* LEFT SIDEBAR — File Tree */}
         {leftSidebarOpen && (
-          <aside className="w-56 flex-shrink-0 glass-panel border-r border-[rgba(0,191,255,0.08)] border-t-0 border-l-0 border-b-0 overflow-hidden flex flex-col">
+          <aside className="w-56 flex-shrink-0 glass-panel border-r border-[rgba(90,179,204,0.07)] border-t-0 border-l-0 border-b-0 overflow-hidden flex flex-col">
             <FileTree />
 
             {/* AdSense sidebar slot */}
@@ -101,10 +101,10 @@ export default function DashboardPage() {
               <button
                 key={tab.id}
                 onClick={() => setCenterTab(tab.id)}
-                className={`flex items-center gap-1.5 px-4 py-2.5 text-[10px] tracking-[2px] border-r border-[rgba(0,191,255,0.06)] transition-all ${
+                className={`flex items-center gap-1.5 px-4 py-2.5 text-[10px] tracking-[2px] border-r border-[rgba(90,179,204,0.05)] transition-all ${
                   centerTab === tab.id
-                    ? "text-[#00bfff] bg-[rgba(0,191,255,0.06)] border-b border-b-[#00bfff]"
-                    : "text-[#3a3a3a] hover:text-[#a0a0a0]"
+                    ? "text-[#5ab3cc] bg-[rgba(90,179,204,0.05)] border-b border-b-[#5ab3cc]"
+                    : "text-[#2a2a2e] hover:text-[#848484]"
                 }`}
               >
                 <span>{tab.icon}</span>
@@ -147,7 +147,7 @@ export default function DashboardPage() {
         </main>
 
         {/* RIGHT SIDEBAR — AI Chat */}
-        <aside className="w-72 flex-shrink-0 glass-panel border-l border-[rgba(0,191,255,0.08)] border-t-0 border-r-0 border-b-0 flex flex-col overflow-hidden">
+        <aside className="w-72 flex-shrink-0 glass-panel border-l border-[rgba(90,179,204,0.07)] border-t-0 border-r-0 border-b-0 flex flex-col overflow-hidden">
           <AIChatPanel />
         </aside>
       </div>

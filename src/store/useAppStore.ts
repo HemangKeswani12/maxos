@@ -64,7 +64,7 @@ export const useAppStore = create<AppState>()(
       setLeftSidebarOpen: (open) => set({ leftSidebarOpen: open }),
     }),
     {
-      name: "maxos-store",
+      name: "bemaxxed-store",
       partialize: (state) => ({
         userProfile: state.userProfile,
         chatMessages: state.chatMessages,

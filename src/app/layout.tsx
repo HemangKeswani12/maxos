@@ -3,12 +3,12 @@ import "./globals.css";
 import { Providers } from "@/components/ui/Providers";
 
 export const metadata: Metadata = {
-  title: "maxOS — objectively better, open source.",
+  title: "bemaxxed — objectively better, open source.",
   description:
-    "maxOS is an engineering solution to human aesthetics. Data-driven, evidence-based optimization. Not a course. Not a cult.",
-  keywords: ["aesthetics", "looksmaxing", "self-improvement", "skincare", "fitness", "posture"],
+    "bemaxxed is an engineering solution to human aesthetics. Data-driven, evidence-based optimization. Not a course. Not a cult.",
+  keywords: ["aesthetics", "self-improvement", "skincare", "fitness", "posture", "improvement"],
   openGraph: {
-    title: "maxOS",
+    title: "bemaxxed",
     description: "objectively better, open source.",
     type: "website",
   },
@@ -23,7 +23,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Google AdSense */}
         {process.env.NEXT_PUBLIC_ADSENSE_ID && (
           <script
             async
