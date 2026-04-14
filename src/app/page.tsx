@@ -7,6 +7,7 @@ import { HeroBackground } from "@/components/landing/HeroBackground";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { FeatureGrid } from "@/components/landing/FeatureGrid";
 import { MaxOSLogo } from "@/components/ui/MaxOSLogo";
+import { useAppStore } from "@/store/useAppStore";
 
 const TYPEWRITER_LINES = [
   "Your jawline is a geometric problem.",
@@ -111,12 +112,19 @@ export default function LandingPage() {
 
   useEffect(() => {
     if (status === "authenticated" && session) {
-      router.push("/dashboard");
+      // If onboarding complete, go to dashboard. Otherwise onboarding.
+      const store = useAppStore.getState();
+      const profile = store.userProfile;
+      if (profile?.onboarding_complete) {
+        router.push("/dashboard");
+      } else {
+        router.push("/onboarding");
+      }
     }
   }, [status, session, router]);
 
   const handleLoadComplete = () => {
-    signIn("google", { callbackUrl: "/dashboard" });
+    signIn("google", { callbackUrl: "/onboarding" });
   };
 
   if (launched) {
